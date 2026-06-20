@@ -1,0 +1,192 @@
+<Window x:Class="OshchepkovTaskManager.App.Views.TaskEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:OshchepkovTaskManager.App.Converters"
+        Title="Задача"
+        Width="500" Height="500"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#1A1A1F"
+        BorderBrush="#33333E"
+        BorderThickness="1">
+
+    <Window.Resources>
+        <conv:StatusDisplayConverter   x:Key="StatusConv"/>
+        <conv:PriorityDisplayConverter x:Key="PriorityConv"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок диалога -->
+        <Border Grid.Row="0"
+                Background="#222228"
+                BorderBrush="#33333E"
+                BorderThickness="0,0,0,1"
+                Padding="28,20">
+            <StackPanel>
+                <TextBlock FontSize="16" FontWeight="Bold" Foreground="#EEEEF5">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="Новая задача"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEdit}" Value="True">
+                                    <Setter Property="Text" Value="Редактировать задачу"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock FontSize="12" Foreground="#606078" Margin="0,3,0,0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="Заполните поля и нажмите Сохранить"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEdit}" Value="True">
+                                    <Setter Property="Text" Value="Внесите изменения и нажмите Сохранить"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <!-- Форма -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,24,28,8">
+
+                <TextBlock Text="НАЗВАНИЕ *" Foreground="#606078" FontSize="10" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ModernTextBox}"
+                         Height="38"
+                         Margin="0,0,0,18"/>
+
+                <TextBlock Text="ОПИСАНИЕ" Foreground="#606078" FontSize="10" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource ModernTextBox}"
+                         Height="80"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,18"/>
+
+                <!-- Приоритет и Статус рядом -->
+                <Grid Margin="0,0,0,18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="ПРИОРИТЕТ" Foreground="#606078" FontSize="10" FontWeight="Bold" Margin="0,0,0,6"/>
+                        <ComboBox ItemsSource="{Binding Priorities}"
+                                  SelectedItem="{Binding Priority}"
+                                  Style="{StaticResource ModernComboBox}"
+                                  Height="38">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource PriorityConv}}"
+                                               Foreground="#1A1A1F"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="СТАТУС" Foreground="#606078" FontSize="10" FontWeight="Bold" Margin="0,0,0,6"/>
+                        <ComboBox ItemsSource="{Binding Statuses}"
+                                  SelectedItem="{Binding Status}"
+                                  Style="{StaticResource ModernComboBox}"
+                                  Height="38">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource StatusConv}}"
+                                               Foreground="#1A1A1F"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="СРОК ВЫПОЛНЕНИЯ" Foreground="#606078" FontSize="10" FontWeight="Bold" Margin="0,0,0,6"/>
+                <DatePicker SelectedDate="{Binding DueDate}"
+                            Height="38"
+                            FontSize="13"
+                            Foreground="#1A1A1F"
+                            BorderBrush="#44445A"
+                            Margin="0,0,0,18"/>
+
+                <!-- Переключатель важности -->
+                <Border
+                        BorderBrush="#44445A"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="16,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Важная задача" Foreground="#EEEEF5" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Text="Будет отмечена звёздочкой ★" Foreground="#606078" FontSize="11" Margin="0,2,0,0"/>
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding IsImportant}" VerticalAlignment="Center">
+                            <CheckBox.Template>
+                                <ControlTemplate TargetType="CheckBox">
+                                    <Border x:Name="Bg" Width="42" Height="22" CornerRadius="11" Background="#33333E">
+                                        <Ellipse x:Name="Dot" Width="16" Height="16" Fill="#606078"
+                                                 HorizontalAlignment="Left" Margin="3,0,0,0"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="Bg"  Property="Background" Value="#3D3660"/>
+                                            <Setter TargetName="Dot" Property="Fill" Value="#7C6AF7"/>
+                                            <Setter TargetName="Dot" Property="HorizontalAlignment" Value="Right"/>
+                                            <Setter TargetName="Dot" Property="Margin" Value="0,0,3,0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </CheckBox.Template>
+                        </CheckBox>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопки -->
+        <Border Grid.Row="2"
+                Background="#222228"
+                BorderBrush="#33333E"
+                BorderThickness="0,1,0,0"
+                Padding="28,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1"
+                        Content="Отмена"
+                        Style="{StaticResource SecondaryButton}"
+                        IsCancel="True"
+                        Width="110" Height="38"/>
+                <Button Grid.Column="3"
+                        x:Name="OkButton"
+                        Content="Сохранить"
+                        Style="{StaticResource PrimaryButton}"
+                        IsDefault="True"
+                        Width="110" Height="38"
+                        Click="OkButton_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

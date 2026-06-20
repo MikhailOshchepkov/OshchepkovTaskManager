@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OshchepkovTaskManager.Core.Models.TaskItem">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAEABAgAGAEACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TaskItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OshchepkovTaskManager.Core.Models.TaskStatistics">
+    <Position X="8.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACIAAAABAAAAAAQAQAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\TaskStatistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OshchepkovTaskManager.Core.Services.TaskRepository" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AA4AAAAgAAAAAAAAAAAAAAAAAAEAAAAAAoAAAAAAEIA=</HashCode>
+      <FileName>Services\TaskRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="OshchepkovTaskManager.Core.Services.TaskService" BaseTypeListCollapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIACBgAARAAAAAAAAAAARAAFAAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>Services\TaskService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="OshchepkovTaskManager.Core.Interfaces.ITaskRepository">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAgAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAEIA=</HashCode>
+      <FileName>Interfaces\ITaskRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OshchepkovTaskManager.Core.Interfaces.ITaskService">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIACBgAAQAAAAAAAAAAARAAFAAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>Interfaces\ITaskService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="OshchepkovTaskManager.Core.Models.TaskPriority">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\TaskItem.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OshchepkovTaskManager.Core.Models.TaskStatus">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACIAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\TaskItem.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
